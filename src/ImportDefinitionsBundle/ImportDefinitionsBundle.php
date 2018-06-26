@@ -9,7 +9,7 @@
  * files that are distributed with this source code.
  *
  * @copyright  Copyright (c) 2016-2018 w-vision AG (https://www.w-vision.ch)
- * @license    https://github.com/w-vision/ImportDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
+ * @license    https://github.com/ntriga/ImportDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
 namespace ImportDefinitionsBundle;
@@ -36,7 +36,7 @@ class ImportDefinitionsBundle extends AbstractResourceBundle implements PimcoreB
      */
     public function getPackageName()
     {
-        return 'w-vision/import-definitions';
+        return 'ntriga/import-definitions';
     }
 
     /**
@@ -79,7 +79,7 @@ class ImportDefinitionsBundle extends AbstractResourceBundle implements PimcoreB
      */
     protected function getComposerPackageName()
     {
-        return 'w-vision/import-definitions';
+        return 'ntriga/import-definitions';
     }
 
     public function getInstaller()
