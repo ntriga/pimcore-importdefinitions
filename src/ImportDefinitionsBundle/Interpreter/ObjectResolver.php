@@ -12,10 +12,10 @@
  * @license    https://github.com/w-vision/ImportDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-namespace ImportDefinitionsBundle\Interpreter;
+namespace NtrigaImportDefinitionsBundle\Interpreter;
 
-use ImportDefinitionsBundle\Model\DefinitionInterface;
-use ImportDefinitionsBundle\Model\Mapping;
+use NtrigaImportDefinitionsBundle\Model\DefinitionInterface;
+use NtrigaImportDefinitionsBundle\Model\Mapping;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Listing;
 
@@ -43,14 +43,14 @@ class ObjectResolver implements InterpreterInterface
         /**
          * @var Listing $listing
          */
-        $listing = $class::$lookup($value);
-        $found = $listing->count();
+        $object = $class::$lookup($value);
+        //$found = $object->getTotalCount();
 
-        if ($found < 1 || $found > 1) {
+        if ($object != null) {
             // too few or too many found
-            return null;
+            return $object;
         }
 
-        return $listing->current();
+        return null;
     }
 }
