@@ -12,10 +12,10 @@
  * @license    https://github.com/w-vision/ImportDefinitions/blob/master/gpl-3.0.txt GNU General Public License version 3 (GPLv3)
  */
 
-namespace NtrigaImportDefinitionsBundle\Interpreter;
+namespace ImportDefinitionsBundle\Interpreter;
 
-use NtrigaImportDefinitionsBundle\Model\DefinitionInterface;
-use NtrigaImportDefinitionsBundle\Model\Mapping;
+use ImportDefinitionsBundle\Model\DefinitionInterface;
+use ImportDefinitionsBundle\Model\Mapping;
 use Pimcore\Model\DataObject\Concrete;
 use Pimcore\Model\DataObject\Listing;
 
