@@ -201,6 +201,11 @@ services:
     tags:
       - { name: import_definition.setter, type: key, form-type: ImportDefinitionsBundle\Form\Type\NoConfigurationType }
 
+  import_definition.setter.gallery:
+    class: ImportDefinitionsBundle\Setter\GallerySetter
+    tags:
+      - { name: import_definition.setter, type: gallery, form-type: ImportDefinitionsBundle\Form\Type\NoConfigurationType }
+
   import_definition.setter.localizedfield:
     class: ImportDefinitionsBundle\Setter\LocalizedfieldSetter
     tags:
