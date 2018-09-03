@@ -107,12 +107,6 @@ services:
     tags:
       - { name: import_definition.interpreter, type: asset_by_path, form-type: ImportDefinitionsBundle\Form\Type\Interpreter\AssetByPathInterpreterType }
 
-  import_definition.interpreter.array_by_list:
-    class: ImportDefinitionsBundle\Interpreter\ArrayByListInterpreter
-    arguments: ['@import_definition.service.placeholder']
-    tags:
-      - { name: import_definition.interpreter, type: array_by_list, form-type: ImportDefinitionsBundle\Form\Type\Interpreter\ArrayByListInterpreterType }
-
   import_definition.interpreter.checkbox:
     class: ImportDefinitionsBundle\Interpreter\CheckboxInterpreter
     tags:

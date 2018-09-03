@@ -77,7 +77,6 @@ To prepare data before it goes to the Objects-Setter Method, there are these "In
  - AssetsUrl -> Downloads an Asset from an Url and saves it to a multihref field
  - AssetUrl -> Downloads an Asset from an Url and saves it to a href field
  - AssetByPath -> Gets Asset object by path and saves it to a the field
- - ArrayByList -> Gets an array from listed values and saves it to a the field
  - DefaultValue -> Saves a Static-Value (definied in the UI) to the field
  - Checkbox -> transform "yes" and "no" into a Boolean Value
  - Href -> solves the connection from an ID to an actual Pimcore Object
