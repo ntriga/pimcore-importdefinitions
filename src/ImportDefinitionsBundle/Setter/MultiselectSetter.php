@@ -18,7 +18,7 @@ use Pimcore\Model\DataObject;
 use Pimcore\Model\DataObject\Concrete;
 use ImportDefinitionsBundle\Model\Mapping;
 
-class GallerySetter implements SetterInterface
+class MultiselectSetter implements SetterInterface
 {
     /**
      * {@inheritdoc}
@@ -29,19 +29,10 @@ class GallerySetter implements SetterInterface
         $setter = explode('~', $map->getToColumn());
         $setter = sprintf('set%s', ucfirst($setter[0]));
 
-        if (!is_array($value)) {
-            $value = array($value);
-        }
-
-        $items = [];
-        foreach($value as $img){
-           $advancedImage = new \Pimcore\Model\DataObject\Data\Hotspotimage();
-           $advancedImage->setImage($img);
-           $items[] = $advancedImage;
-        }
+        $items = array_filter(explode(',',$value));
 
         if (method_exists($object, $setter)) {
-            $object->$setter(new \Pimcore\Model\DataObject\Data\ImageGallery($items));
+            $object->$setter($items);
         }
     }
 }

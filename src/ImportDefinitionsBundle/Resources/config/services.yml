@@ -95,6 +95,11 @@ services:
     tags:
       - { name: import_definition.interpreter, type: assets_url, form-type: ImportDefinitionsBundle\Form\Type\Interpreter\AssetsUrlInterpreterType }
 
+  import_definition.interpreter.multiple_assets:
+    class: ImportDefinitionsBundle\Interpreter\MultipleAssetsInterpreter
+    tags:
+      - { name: import_definition.interpreter, type: multiple_assets, form-type: ImportDefinitionsBundle\Form\Type\NoConfigurationType }
+
   import_definition.interpreter.asset_url:
     class: ImportDefinitionsBundle\Interpreter\AssetUrlInterpreter
     arguments: ['@import_definition.service.placeholder']
@@ -205,6 +210,11 @@ services:
     class: ImportDefinitionsBundle\Setter\GallerySetter
     tags:
       - { name: import_definition.setter, type: gallery, form-type: ImportDefinitionsBundle\Form\Type\NoConfigurationType }
+
+  import_definition.setter.multiselect:
+    class: ImportDefinitionsBundle\Setter\MultiselectSetter
+    tags:
+      - { name: import_definition.setter, type: multiselect, form-type: ImportDefinitionsBundle\Form\Type\NoConfigurationType }
 
   import_definition.setter.localizedfield:
     class: ImportDefinitionsBundle\Setter\LocalizedfieldSetter
