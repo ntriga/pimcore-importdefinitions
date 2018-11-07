@@ -26,6 +26,8 @@ use ImportDefinitionsBundle\Service\Placeholder;
 
 class AssetUrlInterpreter implements InterpreterInterface, DataSetAwareInterface
 {
+    const METADATA_ORIGIN_URL = 'origin_url';
+
     use DataSetAwareTrait;
 
     /**
@@ -56,8 +58,23 @@ class AssetUrlInterpreter implements InterpreterInterface, DataSetAwareInterface
             $context = new PlaceholderContext($data, $object);
             $assetPath = $this->placeholderService->replace($path, $context);
             $assetFullPath = sprintf('%s/%s', $assetPath, $filename);
+            
+            if ($configuration['deduplicate_by_url']) {
+                $listing = new Asset\Listing();
+                $listing->onCreateQuery(function (\Pimcore\Db\ZendCompatibility\QueryBuilder $select){
+                    $select->join('assets_metadata AS am', 'id = am.cid', ['cid']);
+                });
+                $listing->addConditionParam('am.name = ?', self::METADATA_ORIGIN_URL);
+                $listing->addConditionParam('am.data = ?', $value);
+                $listing->setLimit(1);
+                $listing->setOrder(['creationDate', 'desc']);
 
-            $asset = Asset::getByPath($assetFullPath);
+                $asset = $listing->current();
+            } else {
+                $asset = Asset::getByPath($assetFullPath);
+            }
+
+            $parent = Asset\Service::createFolderByPath($assetPath);
 
             if (!$asset instanceof Asset) {
                 // Download
@@ -66,8 +83,25 @@ class AssetUrlInterpreter implements InterpreterInterface, DataSetAwareInterface
                 if ($data) {
                     $asset = new Asset();
                     $asset->setFilename($filename);
-                    $asset->setParent(Asset\Service::createFolderByPath($assetPath));
+                    $asset->setParent($parent);
                     $asset->setData($data);
+                    $asset->addMetadata(self::METADATA_ORIGIN_URL, 'text', $value);
+                    $asset->save();
+                }
+            } else {
+                $save = false;
+
+                if ($configuration['relocate_existing_objects'] && $asset->getParent() !== $parent) {
+                    $asset->setParent($parent);
+                    $save = true;
+                }
+
+                if ($configuration['rename_existing_objects'] && $asset->getFilename() !== $filename) {
+                    $asset->setFilename($filename);
+                    $save = true;
+                }
+
+                if ($save) {
                     $asset->save();
                 }
             }

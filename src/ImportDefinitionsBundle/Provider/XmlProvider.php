@@ -15,7 +15,7 @@
 namespace ImportDefinitionsBundle\Provider;
 
 use Pimcore\Model\Asset;
-use ImportDefinitionsBundle\Model\Mapping\FromColumn;
+use ImportDefinitionsBundle\Model\ImportMapping\FromColumn;
 
 class XmlProvider implements ProviderInterface
 {
@@ -85,6 +85,6 @@ class XmlProvider implements ProviderInterface
         $file = sprintf('%s/%s', PIMCORE_PROJECT_ROOT, $params['file']);
         $xml = file_get_contents($file);
 
-        return $this->convertXmlToArray($xml, $configuration['xpath']);
+        return $this->convertXmlToArray($xml, $configuration['xPath']);
     }
 }
